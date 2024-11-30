@@ -61,6 +61,6 @@ class CustomersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def customer_params
-      params.expect(customer: [ :first_name, :last_name, :email, :phone, :company, :probability ])
+      params.expect(customer: [ :first_name, :last_name, :email, :phone, :company, :stage, :probability ])
     end
 end
