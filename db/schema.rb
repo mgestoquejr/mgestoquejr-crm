@@ -10,8 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_30_143813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "stage", ["closed", "contacted", "diligence", "lead", "rejected"]
+
+  create_table "customers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email", null: false
+    t.string "phone"
+    t.string "company"
+    t.integer "probability", default: 0, null: false
+    t.enum "stage", default: "contacted", null: false, enum_type: "stage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
