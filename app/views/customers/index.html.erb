@@ -11,38 +11,13 @@
   <%= link_to "New customer", new_customer_path %>
 
   <div class="row">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Email</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Phone</th>
-          <th>Company</th>
-          <th>Stage</th>
-          <th>Probability</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @customers.each do |customer| %>
-          <tr id="customer-<%=customer.id %>">
-            <td><%= customer.id %></td>
-            <td><%= customer.email %></td>
-            <td><%= customer.first_name %></td>
-            <td><%= customer.last_name %></td>
-            <td><%= customer.phone %></td>
-            <td><%= customer.company %></td>
-            <td><%= customer.stage.capitalize %></td>
-            <td><%= customer.probability %></td>
-            <td>
-              <%= link_to "Edit", edit_customer_path(customer), class: %>
-              <%= link_to "Delete", customer, data: { turbo_method: :delete } %>
-            </td>
-          </tr>
+    <% Customer.defined_enums["stage"].keys.each do |stage| %>
+      <div class="col-2" id="customers-<%= stage %>">
+        <h4><%= stage.titleize %></h4>
+        <% Customer.send(stage).order(updated_at: :desc).each do |customer| %>
+          <%= render partial: "customer_row", locals: { customer: customer } %>
         <% end %>
-      </tbody>
-    </table>
+      </div>
+    <% end %>
   </div>
 </div>

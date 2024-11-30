@@ -1,0 +1,8 @@
+<div id="customer-<%=customer.id %>">
+  <div><%= customer.full_name %></div>
+  <div>
+    <i class="arrow-down"></i>
+    <%= link_to "Edit", edit_customer_path(customer), class: %>
+    <%= link_to "Delete", customer, data: { turbo_method: :delete } %>
+  </div>
+</div>
