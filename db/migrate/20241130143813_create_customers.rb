@@ -1,6 +1,6 @@
 class CreateCustomers < ActiveRecord::Migration[8.0]
   def change
-    create_enum :stage, ["closed", "contacted", "diligence", "lead", "rejected"]
+    create_enum :stage, [ "closed", "contacted", "diligence", "lead", "rejected" ]
 
     create_table :customers do |t|
       t.string :first_name
