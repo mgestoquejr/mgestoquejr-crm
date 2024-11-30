@@ -22,10 +22,8 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.save
         format.html { redirect_to root_path, notice: "Customer was successfully created." }
-        format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -35,10 +33,8 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.update(customer_params)
         format.html { redirect_to root_path, notice: "Customer was successfully updated." }
-        format.json { render :show, status: :ok, location: @customer }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -48,8 +44,7 @@ class CustomersController < ApplicationController
     @customer.destroy!
 
     respond_to do |format|
-      format.html { redirect_to customers_path, status: :see_other, notice: "Customer was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove("customer-#{@customer.id}") }
     end
   end
 

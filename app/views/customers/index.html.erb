@@ -27,7 +27,7 @@
       </thead>
       <tbody>
         <% @customers.each do |customer| %>
-          <tr>
+          <tr id="customer-<%=customer.id %>">
             <td><%= customer.id %></td>
             <td><%= customer.email %></td>
             <td><%= customer.first_name %></td>
@@ -38,7 +38,7 @@
             <td><%= customer.probability %></td>
             <td>
               <%= link_to "Edit", edit_customer_path(customer), class: %>
-              <%= button_to "Delete", customer, method: :delete, class: "btn btn-link", form: {class: "d-inline"} %>
+              <%= link_to "Delete", customer, data: { turbo_method: :delete } %>
             </td>
           </tr>
         <% end %>
